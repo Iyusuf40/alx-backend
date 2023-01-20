@@ -45,8 +45,8 @@ class Server:
         data = self.dataset()
         offset = index + page_size
         indexed_data = self.indexed_dataset()
-        max_index = math.ceil(len(indexed_data) / page_size) - 1
-        # assert (isinstance(index, int) and index <= max_index)
+        max_index = len(indexed_data) - 1
+        assert (isinstance(index, int) and index <= max_index)
         dct["index"] = index
         dct["data"] = []
         dct["page_size"] = page_size
@@ -56,7 +56,6 @@ class Server:
         try:
             index_of_index = keys.index(index)
         except Exception as e:
-            # print("error::", e)
             index_of_index = index
             pass
 
@@ -66,10 +65,7 @@ class Server:
         except Exception:
             next_index = None
         stop_index = index_of_index + page_size
-        # print("i_of_i: {} -- next_i: {}".format(index_of_index, next_index))
         dct["next_index"] = next_index
-        # print("range:", keys[index_of_index:next_index - 1],
-        # "all keys:", keys[:6])
         for i in keys[index_of_index:stop_index]:
             dct["data"].append(indexed_data[i])
 
