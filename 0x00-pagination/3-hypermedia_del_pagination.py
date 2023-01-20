@@ -46,23 +46,31 @@ class Server:
         offset = index + page_size
         indexed_data = self.__indexed_dataset
         max_index = math.ceil(len(indexed_data) / page_size) - 1
-        assert (isinstance(index, int) and index <= max_index)
+        # assert (isinstance(index, int) and index <= max_index)
         dct["index"] = index
         dct["data"] = []
         dct["page_size"] = page_size
-        dct["next_index"] = offset
+        dct["next_index"] = None
 
-        u_index = set()
-        for i in range(index, offset):
-            if indexed_data.get(i) and i not in u_index:
-                dct["data"].append(indexed_data[i])
-                u_index.add(i)
-            else:
-                if indexed_data.get(i + 1) and (i + 1) not in u_index:
-                    dct["data"].append(indexed_data[i + 1])
-                    dct["next_index"] = dct["next_index"] + 1
-                    u_index.add(i + 1)
-                    if i in u_index:  # required to remove double addition
-                        dct["next_index"] = dct["next_index"] - 1
+        keys = list(indexed_data.keys())
+        try:
+            index_of_index = keys.index(index)
+        except Exception as e:
+            # print("error::", e)
+            index_of_index = index
+            pass
+
+        assert (index_of_index < len(keys) and index_of_index >= 0)
+        try:
+            next_index = keys[index_of_index + page_size]
+        except Exception:
+            next_index = None
+        stop_index = index_of_index + page_size
+        # print("i_of_i: {} -- next_i: {}".format(index_of_index, next_index))
+        dct["next_index"] = next_index
+        # print("range:", keys[index_of_index:next_index - 1],
+        # "all keys:", keys[:6])
+        for i in keys[index_of_index:stop_index]:
+            dct["data"].append(indexed_data[i])
 
         return dct
