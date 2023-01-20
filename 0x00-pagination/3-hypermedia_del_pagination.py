@@ -44,7 +44,7 @@ class Server:
         dct: Dict[str, Any] = {}
         data = self.dataset()
         offset = index + page_size
-        indexed_data = self.__indexed_dataset
+        indexed_data = self.indexed_dataset()
         max_index = math.ceil(len(indexed_data) / page_size) - 1
         # assert (isinstance(index, int) and index <= max_index)
         dct["index"] = index
