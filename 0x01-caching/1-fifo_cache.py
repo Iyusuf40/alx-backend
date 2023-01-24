@@ -29,6 +29,8 @@ class FIFOCache(BaseCaching):
                 print(f"DISCARD: {to_be_removed}")
             else:
                 self.cache_data[key] = item
+                self.fifo_lst.remove(key)
+                self.fifo_lst.append(key)
 
     def get(self, key):
         """ gets item with index == key from self.cached_data """
