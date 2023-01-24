@@ -22,10 +22,8 @@ class LRUCache(BaseCaching):
             self.cache_data[key] = item
         else:
             if self.get(key) is None:
-                to_be_removed = self.lru_lst[-1]
-                self.lru_lst.remove(to_be_removed)
+                to_be_removed = self.re_arrange_lru_lst_on_key_access(key)
                 del self.cache_data[to_be_removed]
-                self.lru_lst.insert(0, key)
                 self.cache_data[key] = item
                 print(f"DISCARD: {to_be_removed}")
             else:
@@ -39,9 +37,12 @@ class LRUCache(BaseCaching):
         return self.cache_data.get(key)
 
     def re_arrange_lru_lst_on_key_access(self, key):
-        """ checks if key in lru_list and places it at index  """
+        """ checks if key in lru_list and places it at index  0 """
+        removed = None
         if self.cache_data.get(key):
             self.lru_lst.remove(key)
         else:
-            self.lru_lst.remove(self.lru_lst[-1])
+            removed = self.lru_lst[-1]
+            self.lru_lst.remove(removed)
         self.lru_lst.insert(0, key)
+        return removed
