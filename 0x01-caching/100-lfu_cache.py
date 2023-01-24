@@ -19,8 +19,9 @@ class LFUCache(BaseCaching):
         if len(self.cache_data) < BaseCaching.MAX_ITEMS:
             if self.get(key) is None:
                 self.lfu_lst.insert(0, (key, 0))
-            else:
-                self.remove_key_count_tuple(key)
+            # else:  Else block no longer required since self.get(key)
+            # calls self.re_arrange_lfu_lst_on_key_access which incr count
+            #     self.remove_key_count_tuple(key)
             self.cache_data[key] = item
         else:
             if self.get(key) is None:
