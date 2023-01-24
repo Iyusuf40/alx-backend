@@ -39,7 +39,7 @@ class Server:
             }
         return self.__indexed_dataset
 
-    def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+    def get_hyper_index(self, index=None, page_size: int = 10) -> Dict:
         """ returns copied section of dataset as a dict """
         dct: Dict[str, Any] = {}
         data = self.dataset()
