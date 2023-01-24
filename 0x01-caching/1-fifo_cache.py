@@ -18,7 +18,9 @@ class FIFOCache(BaseCaching):
 
         if len(self.cache_data) < BaseCaching.MAX_ITEMS:
             if self.get(key) is None:
-                # print(key)
+                self.fifo_lst.append(key)
+            else:
+                self.fifo_lst.remove(key)
                 self.fifo_lst.append(key)
             self.cache_data[key] = item
         else:

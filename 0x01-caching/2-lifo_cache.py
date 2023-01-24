@@ -19,6 +19,9 @@ class LIFOCache(BaseCaching):
         if len(self.cache_data) < BaseCaching.MAX_ITEMS:
             if self.get(key) is None:
                 self.lifo_lst.insert(0, key)
+            else:
+                self.lifo_lst.remove(key)
+                self.lifo_lst.insert(0, key)
             self.cache_data[key] = item
         else:
             if self.get(key) is None:

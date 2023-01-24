@@ -19,6 +19,9 @@ class MRUCache(BaseCaching):
         if len(self.cache_data) < BaseCaching.MAX_ITEMS:
             if self.get(key) is None:
                 self.mru_lst.insert(0, key)
+            else:
+                self.mru_lst.remove(key)
+                self.mru_lst.insert(0, key)
             self.cache_data[key] = item
         else:
             if self.get(key) is None:

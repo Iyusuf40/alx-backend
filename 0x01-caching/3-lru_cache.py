@@ -19,6 +19,9 @@ class LRUCache(BaseCaching):
         if len(self.cache_data) < BaseCaching.MAX_ITEMS:
             if self.get(key) is None:
                 self.lru_lst.insert(0, key)
+            else:
+                self.lru_lst.remove(key)
+                self.lru_lst.insert(0, key)
             self.cache_data[key] = item
         else:
             if self.get(key) is None:
