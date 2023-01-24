@@ -18,7 +18,8 @@ class FIFOCache(BaseCaching):
 
         if len(self.cache_data) < BaseCaching.MAX_ITEMS:
             self.cache_data[key] = item
-            self.fifo_lst.append(key)
+            if key not in self.fifo_lst:
+                self.fifo_lst.append(key)
         else:
             if self.get(key) is None:
                 to_be_removed = self.fifo_lst[0]
