@@ -44,7 +44,7 @@ class Server:
         """ returns copied section of dataset as a dict """
         dct: Dict[str, Any] = {}
         data = self.dataset()
-        offset = page_size
+        # offset = page_size
         if index:
             offset = index + page_size
         indexed_data = self.indexed_dataset()
