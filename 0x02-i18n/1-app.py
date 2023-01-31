@@ -16,11 +16,9 @@ class Config(object):
     LANGUAGES = ['en', "fr"]
 
 
+@babel.localeselector
 def get_locale():
     return Config.LANGUAGES
-
-
-babel.init_app(app, locale_selector=get_locale)
 
 
 @app.route('/', strict_slashes=False)
