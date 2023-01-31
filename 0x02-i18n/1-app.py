@@ -16,6 +16,7 @@ class Config(object):
 
 
 def get_locale():
+    """ get_locale func: overrides default """
     return Config.LANGUAGES
 
 
