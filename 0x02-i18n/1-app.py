@@ -18,10 +18,7 @@ class Config(object):
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-@babel.localeselector
-def get_locale() -> List[str]:
-    """ get_locale func: overrides default """
-    return request.accept_languages.best_match(Config.LANGUAGES)
+app.config.from_object(Config)
 
 
 @app.route('/', strict_slashes=False)
