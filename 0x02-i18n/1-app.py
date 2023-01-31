@@ -1,34 +1,28 @@
 #!/usr/bin/env python3
-""" module's doc str """
-
-
-from typing import List, Dict, Union, Sequence, Callable, Any
+""" Module for trying out Babel i18n """
 from flask_babel import Babel
-from flask import Flask, render_template, g, request
+from flask import Flask, render_template
 
-
-app = Flask(__name__)
-babel = Babel(app, default_locale='en', default_timezone='UTC')
+app = Flask(__name__, template_folder='templates')
+babel = Babel(app)
 
 
 class Config(object):
-    """ config for babel """
-    LANGUAGES = ['en', "fr"]
+    """ Configuration Class for Babel """
+
+    LANGUAGES = ['en', 'fr']
     BABEL_DEFAULT_LOCALE = 'en'
     BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
-@babel.localeselector
-def get_locale() -> List[str]:
-    """ get_locale func: overrides default """
-    return request.accept_languages.best_match(Config.LANGUAGES)
+app.config.from_object(Config)
 
 
-@app.route('/', strict_slashes=False)
-def index() -> str:
-    """ root path """
-    return render_template('0-index.html')
+@app.route('/', methods=['GET'], strict_slashes=False)
+def hello_world() -> str:
+    """Renders a Basic Template for Babel Implementation"""
+    return render_template("1-index.html")
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run()
