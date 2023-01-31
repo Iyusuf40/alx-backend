@@ -52,7 +52,7 @@ def get_locale() -> Union[str, None]:
     if locale in Config.LANGUAGES:
         return locale
     user = g.user
-    if user is not None:
+    if user:
         locale = user.get('locale')
         if locale:
             return locale
