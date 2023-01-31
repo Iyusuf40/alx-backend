@@ -4,7 +4,7 @@
 
 from typing import List, Dict, Union, Sequence, Callable, Any
 from flask_babel import Babel
-from flask import Flask, render_template, g
+from flask import Flask, render_template, g, request
 
 
 app = Flask(__name__)
@@ -17,9 +17,9 @@ class Config(object):
 
 
 @babel.localeselector
-def get_locale() -> List:
+def get_locale() -> List[str]:
     """ get_locale func: overrides default """
-    return Config.LANGUAGES
+    return request.accept_languages.best_match(Config.LANGUAGES)
 
 
 @app.route('/', strict_slashes=False)
