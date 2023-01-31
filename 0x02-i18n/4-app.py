@@ -22,7 +22,7 @@ app.config.from_object(Config)
 
 
 @babel.localeselector
-def get_locale() -> str:
+def get_locale() -> Union[str, None]:
     """ override default fet_locale """
     locale = request.args.get('locale', None)
     if locale in Config.LANGUAGES:
