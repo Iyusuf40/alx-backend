@@ -53,7 +53,7 @@ def get_locale() -> Union[str, None]:
         return locale
     user = g.user
     if user is not None:
-        return user.locale
+        return user.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
@@ -66,7 +66,7 @@ def get_timezone() -> Union[str, None]:
 
     user = g.user
     if user is not None:
-        return user.timezone
+        return user.get('timezone')
     return 'UTC'
 
 
