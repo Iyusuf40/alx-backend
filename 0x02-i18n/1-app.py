@@ -4,11 +4,10 @@
 
 from typing import List, Dict, Union, Sequence, Callable, Any
 from flask_babel import Babel
-from flask import Flask, render_template
+from flask import Flask, render_template, g
 
 
 app = Flask(__name__)
-babel = Babel(app)
 
 
 class Config(object):
@@ -16,9 +15,12 @@ class Config(object):
     LANGUAGES = ['en', "fr"]
 
 
-@babel.localeselector
 def get_locale():
     return Config.LANGUAGES
+
+
+babel = Babel(app, default_locale='en', default_timezone='UTC',
+              locale_selector=get_locale)
 
 
 @app.route('/', strict_slashes=False)
