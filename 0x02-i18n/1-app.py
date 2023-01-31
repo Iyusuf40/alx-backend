@@ -14,6 +14,8 @@ babel = Babel(app, default_locale='en', default_timezone='UTC')
 class Config(object):
     """ config for babel """
     LANGUAGES = ['en', "fr"]
+    BABEL_DEFAULT_LOCALE = 'en'
+    BABEL_DEFAULT_TIMEZONE = 'UTC'
 
 
 @babel.localeselector
