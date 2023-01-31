@@ -51,11 +51,11 @@ def get_locale() -> Union[str, None]:
     locale = request.args.get('locale', None)
     if locale in Config.LANGUAGES:
         return locale
-    user = g.user
-    if user:
-        locale = user.get('locale')
-        if locale:
-            return locale
+    # user = g.user
+    # if user:
+    #     locale = user.get('locale')
+    #     if locale:
+    #         return locale
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
