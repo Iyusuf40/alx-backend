@@ -15,13 +15,13 @@ class Config(object):
     LANGUAGES = ['en', "fr"]
 
 
+@babel.localeselector
 def get_locale() -> List:
     """ get_locale func: overrides default """
     return Config.LANGUAGES
 
 
-babel = Babel(app, default_locale='en', default_timezone='UTC',
-              locale_selector=get_locale)
+babel = Babel(app, default_locale='en', default_timezone='UTC')
 
 
 @app.route('/', strict_slashes=False)
