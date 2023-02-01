@@ -48,7 +48,8 @@ def before_request() -> Union[Dict, None]:
     if g.user:
         user = g.user
         now = datetime.now()
-        fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+        # fmt = '%Y-%m-%d %H:%M:%S %Z%z'
+        fmt = '%b %d, %Y, %I:%M:%S %p'
         tz = timezone(user.get('timezone'))
         loc_t = tz.localize(datetime.now())
         time = loc_t.strftime(fmt)
