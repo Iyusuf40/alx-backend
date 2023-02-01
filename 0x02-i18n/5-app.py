@@ -3,7 +3,7 @@
 
 
 from typing import List, Dict, Union, Sequence, Callable, Any
-from flask_babel import Babel, gettext
+from flask_babel import Babel
 from flask import Flask, render_template, g, request
 
 

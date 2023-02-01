@@ -3,7 +3,7 @@
 
 
 from typing import List, Dict, Union, Sequence, Callable, Any
-from flask_babel import Babel, gettext
+from flask_babel import Babel
 from flask import Flask, render_template, g, request
 
 
@@ -64,9 +64,9 @@ def get_timezone() -> Union[str, None]:
     if timezone:
         return timezone
 
-    user = g.user
-    if user:
-        return user.get('timezone')
+    # user = g.user
+    # if user:
+    #     return user.get('timezone')
     return 'UTC'
 
 
