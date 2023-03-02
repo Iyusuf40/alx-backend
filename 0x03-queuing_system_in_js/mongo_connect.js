@@ -11,15 +11,15 @@ let db = null
 let flag = false
 let globalClient = null;
 
-// Use connect method to connect to the server
+function setClient() {
+  MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
+    if (err) return console.log(`Could not connect: ${err}`)
 
-MongoClient.connect(url, {useUnifiedTopology: true}, function(err, client) {
-  if (err) return console.log(`Could not connect: ${err}`)
+    globalClient = client;
 
-  globalClient = client;
-
-  flag = true
-});
+    flag = true
+  });
+}
 
 async function closeClient() {
   if (globalClient) return globalClient.close()
@@ -27,6 +27,7 @@ async function closeClient() {
 }
 
 async function connectToMongo() {
+  setClient()
   let timer = 0
   while (flag === false) {
     if (timer > 1500) throw new Error('taking too long to connect')
