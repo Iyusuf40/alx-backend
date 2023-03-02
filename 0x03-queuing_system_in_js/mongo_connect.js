@@ -30,7 +30,7 @@ async function connectToMongo() {
   let timer = 0
   while (flag === false) {
     if (timer > 1500) throw new Error('taking too long to connect')
-    const res = await wait()
+    const res = await wait(30)
     timer += 30
   }
   console.log('connection established')
@@ -40,8 +40,8 @@ async function connectToMongo() {
   return (db)
 }
 
-function wait() {
-  return new Promise((res) => setTimeout(() => res('waiting'), 30))
+function wait(timeMs) {
+  return new Promise((res) => setTimeout(() => res('waiting'), timeMs))
 }
 
 async function getDb(dbName) {
