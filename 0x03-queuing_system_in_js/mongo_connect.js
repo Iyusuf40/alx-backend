@@ -35,10 +35,9 @@ async function connectToMongo() {
     timer += 30
   }
   console.log('connection established')
-  // console.log(db)
 
-  // closeClient()
-  return (db)
+  // at this point globalClient is set to client
+  return (globalClient)
 }
 
 function wait(timeMs) {
@@ -46,7 +45,8 @@ function wait(timeMs) {
 }
 
 async function getDb(dbName) {
-  await connectToMongo()
+  const client = await connectToMongo()
+  assert.equal(client, globalClient)  // just to be sure
   db = globalClient.db(dbName);
   return db
 }
